@@ -128,25 +128,17 @@ footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);fon
       <div class="rtit">Ducto venoso · IPV</div>
       <div class="topo">
         <div><div class="lbl">IPV</div><div class="big" id="dMedio"></div></div>
-        <div class="pbig"><div class="lbl">Percentil</div><div class="big p" id="dPct"></div></div>
+        <div class="pbig"><div class="lbl">P95 da semana</div><div class="big p" id="dPct"></div></div>
       </div>
       <div class="status"><span class="tag" id="dTag"></span><span class="hint">IG <span id="dIG"></span></span></div>
-      <div id="dCorpo">
-        
-      <div class="pbar" aria-hidden="true">
-        <div class="pz z1"></div><div class="pz z2"></div><div class="pz z3"></div>
-        <div class="pm" id="pmDv"></div>
-        <div class="pticks"><span style="left:5%">P5</span><span style="left:50%">P50</span><span style="left:95%">P95</span></div>
-      </div>
-        <div class="refline" id="dRef">Referência: P5 <b id="dP5"></b> · P50 <b id="dP50"></b> · P95 <b id="dP95"></b></div>
-      </div>
       <div class="aviso" id="dAviso"></div>
     </section>
   </div>
 </div>
 <footer>
     <p><strong>Artérias uterinas:</strong> Gómez O, Figueras F, Fernández S, Bennasar M, Martínez JM, Puerto B, Gratacós E. Reference ranges for uterine artery mean pulsatility index at 11–41 weeks of gestation. <em>Ultrasound Obstet Gynecol</em> 2008;32(2):128-132. doi:10.1002/uog.5315 (620 gestantes). ln(IP médio) esperado = 1,39 − 0,012×IG + 0,0000198×IG², com IG em dias; desvio-padrão do ln = 0,272 − 0,000259×IG; o percentil vem do z-score dessa distribuição log-normal.</p>
-    <p><strong>Ducto venoso (IPV), 11+0 a 14+0 semanas:</strong> P5 = 0,69, P50 = 0,92 e P95 por semana completa de IG (11s: 1,46; 12s: 1,33; 13s: 1,32; 14s: 1,39), valores de referência fornecidos no curso de pós-graduação em Medicina Fetal. O percentil entre P5 e P95 é aproximado por uma distribuição normal dividida (desvio inferior = (P50 − P5)/1,645; superior = (P95 − P50)/1,645); fora da faixa aparece &lt; P5 ou &gt; P95.</p></footer>
+    <p><strong>Ducto venoso (IPV), 11+0 a 14+0 semanas:</strong> o P95 por semana completa de IG (11s: 1,46; 12s: 1,33; 13s: 1,32; 14s: 1,39) vem de valores de referência fornecidos no curso de pós-graduação em Medicina Fetal. Para o ducto venoso a calculadora indica apenas se o IPV está acima do P95; não calcula percentil.
+</p></footer>
 
 <div id="manual" role="dialog" aria-modal="true" aria-labelledby="manualTit">
   <div class="sheet">
@@ -193,17 +185,8 @@ function refEm(ga){ var m=mediaLn(ga), s=dpLn(ga); return {p5:Math.exp(m-1.645*s
 function percentil(ga, ip){ return normalCDF((Math.log(ip)-mediaLn(ga))/dpLn(ga))*100; }
 
 // ===== Ducto venoso (IPV), 11+0 a 14+0 =====
-var DV_P5 = 0.69, DV_P50 = 0.92;
 var DV_P95 = {11:1.46, 12:1.33, 13:1.32, 14:1.39};
-function dvRef(ga){ var p95 = DV_P95[Math.floor(ga/7)]; return p95==null ? null : {p5:DV_P5, p50:DV_P50, p95:p95}; }
-function dvPercentil(ipv, ga){
-  var r = dvRef(ga); if(!r || ga<77 || ga>98) return null;
-  if(ipv > r.p95) return {txt:'> P95', num:98, alto:true, baixo:false};
-  if(ipv < r.p5)  return {txt:'< P5',  num:2,  alto:false, baixo:true};
-  var z = ipv >= r.p50 ? 1.645*(ipv-r.p50)/(r.p95-r.p50) : -1.645*(r.p50-ipv)/(r.p50-r.p5);
-  var pct = normalCDF(z)*100;
-  return {txt:'P'+Math.max(5, Math.min(95, Math.round(pct))), num:Math.max(5,Math.min(95,pct)), alto:false, baixo:false};
-}
+function dvRef(ga){ if(ga<77 || ga>98) return null; var p95 = DV_P95[Math.floor(ga/7)]; return p95==null ? null : {p95:p95}; }
 
 function $(id){ return document.getElementById(id); }
 function num(v){ v=String(v).trim().replace(',', '.'); if(v==='') return null; var n=Number(v); return isFinite(n)?n:NaN; }
@@ -248,23 +231,19 @@ function calcular(){
   }
 
   if(temDv){
-    var res = dvPercentil(v, ga), ref = dvRef(ga);
-    var fora = (res===null);
-    $('dIG').textContent=igTxt; $('dMedio').textContent=f2(v);
-    $('dCorpo').style.display = fora ? 'none' : 'block';
+    var ref = dvRef(ga);
     var dav=$('dAviso');
-    if(fora){
+    $('dIG').textContent=igTxt; $('dMedio').textContent=f2(v);
+    if(!ref){
       $('dPct').textContent='—';
       setTag($('dTag'), false, false, '', '', 'Fora da faixa de referência');
       $('dTag').className='tag neutro';
       dav.style.display='block';
-      dav.textContent='O percentil do ducto venoso só é calculado entre 11+0 e 14+0 semanas.';
+      dav.textContent='A referência do ducto venoso vale entre 11+0 e 14+0 semanas.';
     } else {
       dav.style.display='none';
-      $('dPct').textContent=res.txt;
-      $('dP5').textContent=f2(ref.p5); $('dP50').textContent=f2(ref.p50); $('dP95').textContent=f2(ref.p95);
-      setTag($('dTag'), res.alto, res.baixo, 'Acima do P95 · IPV aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
-      $('pmDv').style.left=Math.max(1,Math.min(99,res.num))+'%';
+      $('dPct').textContent=f2(ref.p95);
+      setTag($('dTag'), v>ref.p95, false, 'Acima do P95 · IPV aumentado', '', 'Igual ou abaixo do P95');
     }
     $('resDv').classList.add('on');
   }

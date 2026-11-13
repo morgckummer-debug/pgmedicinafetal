@@ -1,7 +1,7 @@
 # Doppler no Morfológico do 1º trimestre: calculadora de percentis
 
 Calculadora simples e gratuita para a pós-graduação em Medicina Fetal.
-Informe a idade gestacional (semanas e dias) e, ao escolher, o IP das artérias uterinas direita e esquerda e/ou o IPV do ducto venoso. A página devolve o percentil, os valores de P5, P50 e P95 para aquela idade gestacional e um gráfico com o ponto medido.
+Informe a idade gestacional (semanas e dias) e, ao escolher, o IP das artérias uterinas direita e esquerda e/ou o IPV do ducto venoso. Para as uterinas, a página devolve o percentil e os valores de P5, P50 e P95 daquela idade gestacional; para o ducto venoso, indica se o IPV está acima do P95 da semana.
 
 Funciona inteiramente no navegador: nenhum dado é enviado, salvo ou armazenado.
 
@@ -15,7 +15,6 @@ Gómez O, Figueras F, Fernández S, Bennasar M, Martínez JM, Puerto B, Gratacó
 
 ## Ducto venoso (IPV), 11+0 a 14+0 semanas
 
-- P5 = 0,69 e P50 = 0,92
 - P95 por semana completa de IG: 11s = 1,46; 12s = 1,33; 13s = 1,32; 14s = 1,39
 - valores de referência fornecidos no curso de pós-graduação em Medicina Fetal
-- entre P5 e P95, o percentil é aproximado por uma distribuição normal dividida; fora da faixa sai "< P5" ou "> P95"
+- a calculadora só informa se o IPV está acima do P95 da semana; não calcula percentil do ducto venoso
