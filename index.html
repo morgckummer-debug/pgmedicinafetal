@@ -45,6 +45,7 @@ button.sec{background:transparent;color:var(--accent);border:1.5px solid var(--l
 .lbl{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .big{font:600 2.5rem/1 Georgia,serif;color:var(--ink)}
 .big.p{color:var(--accent)}
+.big.p.alto{color:var(--warn)}
 .tag{display:inline-block;padding:5px 12px;border-radius:999px;font-size:.84rem;font-weight:700}
 .tag.ok{background:#e3f4ea;color:var(--ok)}.tag.alto{background:#fde7e5;color:var(--warn)}.tag.baixo{background:#fff0d4;color:var(--amber)}.tag.neutro{background:#eee9f4;color:var(--muted)}
 .pbar{position:relative;height:12px;border-radius:99px;display:flex;overflow:visible;margin:26px 0 38px}
@@ -223,7 +224,8 @@ function calcular(){
     var medio=(d+e)/2, p=percentil(ga,medio), r=refEm(ga);
     $('rMedio').textContent=f2(medio); $('rPct').textContent=fmtPct(p); $('rIG').textContent=igTxt;
     $('rP5').textContent=f2(r.p5); $('rP50').textContent=f2(r.p50); $('rP95').textContent=f2(r.p95);
-    setTag($('rTag'), p>95, p<5, 'Acima do P95 · IP aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
+    var altoUt = p>=94.5; $('rPct').classList.toggle('alto', altoUt);
+    setTag($('rTag'), altoUt, p<5, 'P95 ou acima · IP aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
     $('pmUt').style.left=Math.max(1,Math.min(99,p))+'%';
     var av=$('rAviso'); av.style.display='none'; av.textContent='';
     if(ga>97){ av.style.display='block'; av.textContent='IG acima de 13s6d: a curva vale, mas o rastreamento do 1º trimestre é feito entre 11+0 e 13+6.'; }
@@ -235,7 +237,7 @@ function calcular(){
     var dav=$('dAviso');
     $('dIG').textContent=igTxt; $('dMedio').textContent=f2(v);
     if(!ref){
-      $('dPct').textContent='—';
+      $('dPct').textContent='—'; $('dPct').classList.remove('alto');
       setTag($('dTag'), false, false, '', '', 'Fora da faixa de referência');
       $('dTag').className='tag neutro';
       dav.style.display='block';
@@ -243,7 +245,8 @@ function calcular(){
     } else {
       dav.style.display='none';
       $('dPct').textContent=f2(ref.p95);
-      setTag($('dTag'), v>ref.p95, false, 'Acima do P95 · IPV aumentado', '', 'Igual ou abaixo do P95');
+      var altoDv = v>=ref.p95; $('dPct').classList.toggle('alto', altoDv);
+      setTag($('dTag'), altoDv, false, 'P95 ou acima · IPV aumentado', '', 'Abaixo do P95');
     }
     $('resDv').classList.add('on');
   }
