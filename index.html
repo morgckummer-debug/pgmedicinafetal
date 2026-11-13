@@ -38,6 +38,7 @@ button.sec{background:transparent;color:var(--accent);border:1.5px solid var(--l
 .pbig{text-align:right}
 .pbig .big{font-size:3.7rem}
 .refline{font-size:.86rem;color:var(--muted)}
+#dRef{margin-top:12px}
 .refline b{color:var(--ink);font-variant-numeric:tabular-nums}
 .status{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:10px}
 .status .hint{margin:0}
@@ -129,9 +130,10 @@ footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);fon
       <div class="rtit">Ducto venoso · IPV</div>
       <div class="topo">
         <div><div class="lbl">IPV</div><div class="big" id="dMedio"></div></div>
-        <div class="pbig"><div class="lbl">P95 da semana</div><div class="big p" id="dPct"></div></div>
+        <div class="pbig"><div class="lbl">Percentil</div><div class="big p" id="dPct"></div></div>
       </div>
       <div class="status"><span class="tag" id="dTag"></span><span class="hint">IG <span id="dIG"></span></span></div>
+      <div class="refline" id="dRef">Referência: P95 <b id="dP95"></b></div>
       <div class="aviso" id="dAviso"></div>
     </section>
   </div>
@@ -237,15 +239,17 @@ function calcular(){
     var dav=$('dAviso');
     $('dIG').textContent=igTxt; $('dMedio').textContent=f2(v);
     if(!ref){
-      $('dPct').textContent='—'; $('dPct').classList.remove('alto');
+      $('dPct').textContent='—'; $('dPct').classList.remove('alto'); $('dRef').style.display='none';
       setTag($('dTag'), false, false, '', '', 'Fora da faixa de referência');
       $('dTag').className='tag neutro';
       dav.style.display='block';
       dav.textContent='A referência do ducto venoso vale entre 11+0 e 14+0 semanas.';
     } else {
       dav.style.display='none';
-      $('dPct').textContent=f2(ref.p95);
-      var altoDv = v>=ref.p95; $('dPct').classList.toggle('alto', altoDv);
+      var difDv = v - ref.p95, igual = Math.abs(difDv) < 1e-9;
+      $('dPct').textContent = igual ? 'P95' : (difDv > 0 ? '> P95' : '< P95');
+      $('dRef').style.display='block'; $('dP95').textContent=f2(ref.p95);
+      var altoDv = difDv > -1e-9; $('dPct').classList.toggle('alto', altoDv);
       setTag($('dTag'), altoDv, false, 'P95 ou acima · IPV aumentado', '', 'Abaixo do P95');
     }
     $('resDv').classList.add('on');
