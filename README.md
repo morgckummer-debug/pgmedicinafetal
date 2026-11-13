@@ -19,5 +19,3 @@ Gómez O, Figueras F, Fernández S, Bennasar M, Martínez JM, Puerto B, Gratacó
 - P95 por semana completa de IG: 11s = 1,46; 12s = 1,33; 13s = 1,32; 14s = 1,39
 - valores de referência fornecidos no curso de pós-graduação em Medicina Fetal
 - entre P5 e P95, o percentil é aproximado por uma distribuição normal dividida; fora da faixa sai "< P5" ou "> P95"
-
-São curvas de referência por idade gestacional. Não é o cálculo de risco de pré-eclâmpsia da Fetal Medicine Foundation, que ajusta por CCN, peso e origem racial e combina outros marcadores. Ferramenta de apoio; não substitui o julgamento clínico.

@@ -4,54 +4,48 @@
 :root{--bg:#f5f1f9;--card:#fff;--ink:#2a2233;--muted:#74697f;--line:#e8e0f1;--accent:#5b3592;--gold:#b8923a;--ok:#1f7a4d;--warn:#b3261e;--amber:#9a6200}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.hero{background:linear-gradient(135deg,#34195a,#6b3fa0 70%,#7d4fb5);color:#fff;padding:26px 16px 78px;border-bottom:3px solid #e4c67a}
-.hero .in{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:30px}
-.hero img{width:230px;height:auto;flex:none;display:block}
-.kicker{letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:#e4c67a;font-weight:600}
-h1{font:600 1.85rem/1.2 Georgia,"Times New Roman",serif;margin:6px 0 8px}
-.hero p{margin:0;color:#e1d6f0;font-size:.95rem;max-width:56ch}
-@media(max-width:700px){.hero .in{flex-direction:column;text-align:center;gap:12px}.hero img{width:190px}h1{font-size:1.45rem}}
-.wrap{max-width:900px;margin:-50px auto 40px;padding:0 16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 10px 30px -18px rgba(60,30,100,.45);margin-bottom:18px}
-label{display:block;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:600}
-.ig{display:flex;gap:8px}.ig>div{flex:1}
-.igrow{max-width:330px;margin-bottom:18px}
-.grupos{display:grid;grid-template-columns:2fr 1fr;gap:16px}
-@media(max-width:640px){.grupos{grid-template-columns:1fr}}
-.grp{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fcfaff}
-.grp h3{margin:0 0 12px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.hero{background:linear-gradient(135deg,#34195a,#6b3fa0 70%,#7d4fb5);color:#fff;padding:16px 16px 58px;border-bottom:3px solid #e4c67a}
+.hero .in{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:26px}
+.hero img{width:165px;height:auto;flex:none;display:block}
+.kicker{letter-spacing:.14em;text-transform:uppercase;font-size:.7rem;color:#e4c67a;font-weight:600}
+h1{font:600 1.7rem/1.2 Georgia,"Times New Roman",serif;margin:4px 0 6px}
+.hero p{margin:0;color:#e1d6f0;font-size:.92rem;max-width:56ch}
+@media(max-width:700px){.hero{padding:14px 16px 50px}.hero .in{flex-direction:column;text-align:center;gap:8px}.hero img{width:140px}h1{font-size:1.3rem}.hero p{font-size:.85rem}}
+.wrap{max-width:1000px;margin:-44px auto 30px;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 10px 30px -18px rgba(60,30,100,.45);margin-bottom:16px}
+label{display:block;font-size:.74rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;font-weight:600}
+.linha{display:grid;grid-template-columns:1.1fr 2fr 1fr;gap:14px}
+@media(max-width:760px){.linha{grid-template-columns:1fr}}
+.grp{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fcfaff}
+.grp h3{margin:0 0 8px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .grp h3 small{color:var(--muted);font-weight:500;letter-spacing:0;text-transform:none;margin-left:6px}
-.dois-in{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:420px){.dois-in{grid-template-columns:1fr}}
-input{width:100%;font:inherit;font-size:1.05rem;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+.ig,.dois-in{display:grid;gap:8px}
+.ig{grid-template-columns:1fr 1fr}.dois-in{grid-template-columns:1fr 1fr}
+input{width:100%;font:inherit;font-size:1.05rem;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
 input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,53,146,.15)}
-.hint{font-size:.78rem;color:var(--muted);margin-top:5px}
-.acoes{display:flex;gap:10px;margin-top:18px;align-items:center}
-button{font:inherit;font-weight:600;padding:12px 22px;border-radius:12px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.hint{font-size:.76rem;color:var(--muted);margin-top:4px}
+.acoes{display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap}
+.acoes .hint{margin:0 0 0 6px}
+button{font:inherit;font-weight:600;padding:11px 22px;border-radius:12px;border:0;background:var(--accent);color:#fff;cursor:pointer}
 button.sec{background:transparent;color:var(--accent);border:1.5px solid var(--line)}
-.erro{color:var(--warn);font-size:.9rem;min-height:1.2em;margin-top:12px}
-.res{display:none}.res.on{display:block}
-.rtit{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
-.topo{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 28px}
-.lbl{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.big{font:600 2.8rem/1 Georgia,serif;color:var(--ink)}
+.erro{color:var(--warn);font-size:.9rem;min-height:0;margin-top:8px}.erro:empty{display:none}
+#resultados{display:flex;gap:16px;flex-wrap:wrap;scroll-margin-top:10px}
+.res{display:none;flex:1 1 340px;min-width:0;margin-bottom:16px}.res.on{display:block}
+.rtit{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
+.topo{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 24px}
+.lbl{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.big{font:600 2.5rem/1 Georgia,serif;color:var(--ink)}
 .big.p{color:var(--accent)}
 .tag{display:inline-block;padding:5px 12px;border-radius:999px;font-size:.84rem;font-weight:700}
 .tag.ok{background:#e3f4ea;color:var(--ok)}.tag.alto{background:#fde7e5;color:var(--warn)}.tag.baixo{background:#fff0d4;color:var(--amber)}.tag.neutro{background:#eee9f4;color:var(--muted)}
-.pbar{position:relative;height:12px;border-radius:99px;display:flex;overflow:visible;margin:30px 0 42px}
+.pbar{position:relative;height:12px;border-radius:99px;display:flex;overflow:visible;margin:26px 0 38px}
 .pz{height:100%}.z1{width:5%;background:#f4d9a0;border-radius:99px 0 0 99px}.z2{width:90%;background:#dcd0ec}.z3{width:5%;background:#f2b7b1;border-radius:0 99px 99px 0}
 .pm{position:absolute;top:-6px;width:4px;height:24px;border-radius:3px;background:var(--ink);transform:translateX(-50%);box-shadow:0 0 0 3px #fff}
 .pticks span{position:absolute;top:20px;font-size:.72rem;color:var(--muted);transform:translateX(-50%)}
-.dois{display:grid;grid-template-columns:230px 1fr;gap:22px;align-items:start}
-@media(max-width:700px){.dois{grid-template-columns:1fr}}
-table{width:100%;border-collapse:collapse;font-size:.93rem}
-th{color:var(--muted);font-weight:600;font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:0 0 6px}
-td{padding:9px 0;border-top:1px solid var(--line)}td.n{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
-svg{width:100%;height:auto;display:block}
-.g-grid{stroke:#eee6f5}.g-band{fill:#efe8f8}.g-med{stroke:#5b3592;stroke-width:2;fill:none}.g-lim{stroke:#5b3592;stroke-width:1;stroke-dasharray:4 3;fill:none}
-.g-dot{fill:#5b3592}.g-txt{fill:#74697f;font-size:11px}.g-lab{fill:#5b3592;font-size:11px;font-weight:600}.g-pt{fill:#fff;stroke:#2a2233;stroke-width:3}.g-pt.alto{stroke:#b3261e}
-.aviso{background:#fff7e6;border:1px solid #f0d9a8;color:#6b4a00;border-radius:10px;padding:10px 12px;font-size:.88rem;margin-top:14px;display:none}
-footer{max-width:900px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:.8rem}footer p{margin:6px 0}
+.faixa{background:#f7f3fb;border-radius:10px;padding:8px 12px;font-size:.88rem;color:var(--ink)}
+.leitura{margin:12px 0 0;font-size:.95rem;line-height:1.5}
+.aviso{background:#fff7e6;border:1px solid #f0d9a8;color:#6b4a00;border-radius:10px;padding:10px 12px;font-size:.88rem;margin-top:12px;display:none}
+footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:.8rem}footer p{margin:6px 0}
 </style></head>
 <body>
 <header class="hero"><div class="in">
@@ -64,72 +58,67 @@ footer{max-width:900px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font
 </div></header>
 <div class="wrap">
   <section class="card">
-    <div class="igrow"><label>Idade gestacional</label>
-      <div class="ig"><div><input id="sem" type="number" inputmode="numeric" min="11" max="41" placeholder="semanas" aria-label="semanas"></div>
-      <div><input id="dia" type="number" inputmode="numeric" min="0" max="6" placeholder="dias" aria-label="dias"></div></div>
-      <div class="hint">ex.: 12 semanas e 3 dias</div></div>
-    <div class="grupos">
+    <div class="linha">
+      <div class="grp"><h3>Idade gestacional</h3>
+        <div class="ig">
+          <div><label for="sem">Semanas</label><input id="sem" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="12" autocomplete="off"></div>
+          <div><label for="dia">Dias</label><input id="dia" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" placeholder="3" autocomplete="off"></div>
+        </div></div>
       <div class="grp"><h3>Artérias uterinas <small>IP</small></h3>
         <div class="dois-in">
-          <div><label for="ipd">Direita</label><input id="ipd" type="text" inputmode="decimal" placeholder="1,45"></div>
-          <div><label for="ipe">Esquerda</label><input id="ipe" type="text" inputmode="decimal" placeholder="1,30"></div>
+          <div><label for="ipd">Direita</label><input id="ipd" type="text" inputmode="decimal" placeholder="1,45" autocomplete="off"></div>
+          <div><label for="ipe">Esquerda</label><input id="ipe" type="text" inputmode="decimal" placeholder="1,30" autocomplete="off"></div>
         </div></div>
       <div class="grp"><h3>Ducto venoso <small>IPV</small></h3>
-        <div><label for="ipv">IPV</label><input id="ipv" type="text" inputmode="decimal" placeholder="0,95"></div></div>
+        <div><label for="ipv">IPV</label><input id="ipv" type="text" inputmode="decimal" placeholder="0,95" autocomplete="off"></div></div>
     </div>
-    <div class="hint" style="margin-top:10px">Preencha um dos grupos ou os dois.</div>
     <div class="erro" id="erro" role="alert"></div>
-    <div class="acoes"><button id="calc" type="button">Calcular percentis</button><button id="limpar" type="button" class="sec">Limpar</button></div>
+    <div class="acoes"><button id="calc" type="button">Calcular percentis</button><button id="limpar" type="button" class="sec">Limpar</button><span class="hint">Preencha as uterinas, o ducto venoso ou os dois.</span></div>
   </section>
 
-  <section class="card res" id="resUt" aria-live="polite">
-    <div class="rtit">Artérias uterinas · IP médio</div>
-    <div class="topo">
-      <div><div class="lbl">IP médio</div><div class="big" id="rMedio"></div></div>
-      <div><div class="lbl">Percentil</div><div class="big p" id="rPct"></div></div>
-      <div style="padding-bottom:6px"><span class="tag" id="rTag"></span><div class="hint">IG <span id="rIG"></span></div></div>
-    </div>
-    
+  <div id="resultados" aria-live="polite">
+    <section class="card res" id="resUt">
+      <div class="rtit">Artérias uterinas · IP médio</div>
+      <div class="topo">
+        <div><div class="lbl">IP médio</div><div class="big" id="rMedio"></div></div>
+        <div><div class="lbl">Percentil</div><div class="big p" id="rPct"></div></div>
+        <div style="padding-bottom:6px"><span class="tag" id="rTag"></span><div class="hint">IG <span id="rIG"></span></div></div>
+      </div>
+      
       <div class="pbar" aria-hidden="true">
         <div class="pz z1"></div><div class="pz z2"></div><div class="pz z3"></div>
         <div class="pm" id="pmUt"></div>
         <div class="pticks"><span style="left:5%">P5</span><span style="left:50%">P50</span><span style="left:95%">P95</span></div>
       </div>
-    <div class="dois">
-      <table><tr><th>Referência nesta IG</th><th style="text-align:right">IP</th></tr>
-        <tr><td>P5</td><td class="n" id="tP5"></td></tr><tr><td>P50</td><td class="n" id="tP50"></td></tr><tr><td>P95</td><td class="n" id="tP95"></td></tr></table>
-      <svg id="grafico" viewBox="0 0 640 300" role="img" aria-label="Curva de referência das artérias uterinas e valor medido"></svg>
-    </div>
-    <div class="aviso" id="rAviso"></div>
-  </section>
+      <div class="faixa" id="rFaixa"></div>
+      <p class="leitura" id="rLeitura"></p>
+      <div class="aviso" id="rAviso"></div>
+    </section>
 
-  <section class="card res" id="resDv" aria-live="polite">
-    <div class="rtit">Ducto venoso · IPV</div>
-    <div class="topo">
-      <div><div class="lbl">IPV</div><div class="big" id="dMedio"></div></div>
-      <div><div class="lbl">Percentil</div><div class="big p" id="dPct"></div></div>
-      <div style="padding-bottom:6px"><span class="tag" id="dTag"></span><div class="hint">IG <span id="dIG"></span></div></div>
-    </div>
-    <div id="dCorpo">
-    
+    <section class="card res" id="resDv">
+      <div class="rtit">Ducto venoso · IPV</div>
+      <div class="topo">
+        <div><div class="lbl">IPV</div><div class="big" id="dMedio"></div></div>
+        <div><div class="lbl">Percentil</div><div class="big p" id="dPct"></div></div>
+        <div style="padding-bottom:6px"><span class="tag" id="dTag"></span><div class="hint">IG <span id="dIG"></span></div></div>
+      </div>
+      <div id="dCorpo">
+        
       <div class="pbar" aria-hidden="true">
         <div class="pz z1"></div><div class="pz z2"></div><div class="pz z3"></div>
         <div class="pm" id="pmDv"></div>
         <div class="pticks"><span style="left:5%">P5</span><span style="left:50%">P50</span><span style="left:95%">P95</span></div>
       </div>
-    <div class="dois">
-      <table><tr><th>Referência nesta IG</th><th style="text-align:right">IPV</th></tr>
-        <tr><td>P5</td><td class="n" id="dP5"></td></tr><tr><td>P50</td><td class="n" id="dP50"></td></tr><tr><td>P95</td><td class="n" id="dP95"></td></tr></table>
-      <svg id="graficoDv" viewBox="0 0 640 300" role="img" aria-label="Referência do ducto venoso e valor medido"></svg>
-    </div>
-    </div>
-    <div class="aviso" id="dAviso"></div>
-  </section>
+        <div class="faixa" id="dFaixa"></div>
+        <p class="leitura" id="dLeitura"></p>
+      </div>
+      <div class="aviso" id="dAviso"></div>
+    </section>
+  </div>
 </div>
 <footer>
     <p><strong>Artérias uterinas:</strong> Gómez O, Figueras F, Fernández S, Bennasar M, Martínez JM, Puerto B, Gratacós E. Reference ranges for uterine artery mean pulsatility index at 11–41 weeks of gestation. <em>Ultrasound Obstet Gynecol</em> 2008;32(2):128-132. doi:10.1002/uog.5315 (620 gestantes). ln(IP médio) esperado = 1,39 − 0,012×IG + 0,0000198×IG², com IG em dias; desvio-padrão do ln = 0,272 − 0,000259×IG; o percentil vem do z-score dessa distribuição log-normal.</p>
-    <p><strong>Ducto venoso (IPV), 11+0 a 14+0 semanas:</strong> P5 = 0,69, P50 = 0,92 e P95 por semana completa de IG (11s: 1,46; 12s: 1,33; 13s: 1,32; 14s: 1,39), valores de referência fornecidos no curso de pós-graduação em Medicina Fetal. O percentil entre P5 e P95 é aproximado por uma distribuição normal dividida (desvio inferior = (P50 − P5)/1,645; superior = (P95 − P50)/1,645); fora da faixa aparece &lt; P5 ou &gt; P95.</p>
-    <p>Curvas de referência por idade gestacional; não são o cálculo de risco de pré-eclâmpsia da FMF, que ajusta por CCN, peso e origem racial e combina outros marcadores. Ferramenta de apoio; não substitui o julgamento clínico. Nenhum dado digitado é enviado ou guardado.</p></footer>
+    <p><strong>Ducto venoso (IPV), 11+0 a 14+0 semanas:</strong> P5 = 0,69, P50 = 0,92 e P95 por semana completa de IG (11s: 1,46; 12s: 1,33; 13s: 1,32; 14s: 1,39), valores de referência fornecidos no curso de pós-graduação em Medicina Fetal. O percentil entre P5 e P95 é aproximado por uma distribuição normal dividida (desvio inferior = (P50 − P5)/1,645; superior = (P95 − P50)/1,645); fora da faixa aparece &lt; P5 ou &gt; P95.</p></footer>
 <script>
 // ===== Artérias uterinas: Gómez 2008 =====
 function mediaLn(ga){ return 1.39 - 0.012*ga + 0.0000198*ga*ga; }
@@ -172,69 +161,7 @@ function setTag(el, alto, baixo, txtAlto, txtBaixo, txtOk){
   else { el.className='tag ok'; el.textContent=txtOk; }
 }
 
-function eixoY(yMin, yMax, passo, sy, L, W, R){
-  var s='', v;
-  for(v=Math.ceil(yMin/passo)*passo; v<=yMax+1e-9; v+=passo){
-    s+='<line class="g-grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+sy(v)+'" y2="'+sy(v)+'"/>';
-    s+='<text class="g-txt" x="'+(L-6)+'" y="'+(sy(v)+4)+'" text-anchor="end">'+f2(v)+'</text>';
-  }
-  return s;
-}
-function eixoX(xt, sx, H){
-  var s='';
-  xt.forEach(function(d,i){
-    s+='<text class="g-txt" x="'+sx(d)+'" y="'+(H-12)+'" text-anchor="'+(i===xt.length-1?'end':'middle')+'">'+Math.round(d/7)+' sem</text>';
-  });
-  return s;
-}
-
-function desenharUt(gaDias, ip){
-  var curto = gaDias <= 98;
-  var x0=77, x1=curto?105:287, yMax=3.4, yMin=curto?0.6:0.4;
-  if(ip > yMax-0.1) yMax = Math.ceil(ip+0.3);
-  var W=640,H=300,L=44,R=14,T=14,B=34;
-  var sx=function(d){ return L+(d-x0)/(x1-x0)*(W-L-R); };
-  var sy=function(v){ return T+(yMax-v)/(yMax-yMin)*(H-T-B); };
-  var lo=[],md=[],hi=[],passo=curto?1:3,d,r;
-  for(d=x0; d<=x1; d+=passo){ r=refEm(d); lo.push([sx(d),sy(r.p5)]); md.push([sx(d),sy(r.p50)]); hi.push([sx(d),sy(r.p95)]); }
-  var path=function(a){ return a.map(function(p,i){ return (i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1); }).join(' '); };
-  var banda=path(hi)+' '+lo.slice().reverse().map(function(p){ return 'L'+p[0].toFixed(1)+' '+p[1].toFixed(1); }).join(' ')+' Z';
-  var s = eixoY(yMin, yMax, 0.5, sy, L, W, R);
-  s += eixoX(curto ? [77,84,91,98,105] : [77,119,168,217,287], sx, H);
-  s+='<path class="g-band" d="'+banda+'"/>';
-  s+='<path class="g-med" d="'+path(md)+'"/>';
-  s+='<path class="g-lim" d="'+path(hi)+'"/>';
-  s+='<path class="g-lim" d="'+path(lo)+'"/>';
-  s+='<text class="g-lab" x="'+(W-R-2)+'" y="'+(hi[hi.length-1][1]-5)+'" text-anchor="end">P95</text>';
-  s+='<text class="g-lab" x="'+(W-R-2)+'" y="'+(md[md.length-1][1]-5)+'" text-anchor="end">P50</text>';
-  s+='<text class="g-lab" x="'+(W-R-2)+'" y="'+(lo[lo.length-1][1]+14)+'" text-anchor="end">P5</text>';
-  if(gaDias>=x0 && gaDias<=x1){
-    var alto = ip > refEm(gaDias).p95;
-    s+='<circle class="g-pt'+(alto?' alto':'')+'" cx="'+sx(gaDias)+'" cy="'+sy(ip)+'" r="6.5"/>';
-  }
-  $('grafico').innerHTML=s;
-}
-
-function desenharDv(gaDias, ipv, alto){
-  var x0=77, x1=98, yMin=0.4, yMax=Math.max(1.8, Math.ceil((ipv+0.2)*5)/5);
-  var W=640,H=300,L=44,R=30,T=14,B=34;
-  var sx=function(d){ return L+(d-x0)/(x1-x0)*(W-L-R); };
-  var sy=function(v){ return T+(yMax-v)/(yMax-yMin)*(H-T-B); };
-  var P=function(x,y){ return sx(x).toFixed(1)+' '+sy(y).toFixed(1); };
-  var s = eixoY(yMin, yMax, 0.2, sy, L, W, R);
-  s += eixoX([77,84,91,98], sx, H);
-  var topo = 'M'+P(77,1.46)+' L'+P(84,1.46)+' L'+P(84,1.33)+' L'+P(91,1.33)+' L'+P(91,1.32)+' L'+P(98,1.32);
-  s+='<path class="g-band" d="'+topo+' L'+P(98,DV_P5)+' L'+P(77,DV_P5)+' Z"/>';
-  s+='<line class="g-med" x1="'+sx(77)+'" x2="'+sx(98)+'" y1="'+sy(DV_P50)+'" y2="'+sy(DV_P50)+'"/>';
-  s+='<line class="g-lim" x1="'+sx(77)+'" x2="'+sx(98)+'" y1="'+sy(DV_P5)+'" y2="'+sy(DV_P5)+'"/>';
-  s+='<path class="g-lim" fill="none" d="'+topo+'"/>';
-  s+='<circle cx="'+sx(98)+'" cy="'+sy(1.39)+'" r="3.5" class="g-dot"/>';
-  s+='<text class="g-lab" x="'+(W-R+4)+'" y="'+(sy(1.32)-6)+'" text-anchor="start">P95</text>';
-  s+='<text class="g-lab" x="'+(W-R+4)+'" y="'+(sy(DV_P50)+4)+'" text-anchor="start">P50</text>';
-  s+='<text class="g-lab" x="'+(W-R+4)+'" y="'+(sy(DV_P5)+4)+'" text-anchor="start">P5</text>';
-  s+='<circle class="g-pt'+(alto?' alto':'')+'" cx="'+sx(gaDias)+'" cy="'+sy(ipv)+'" r="6.5"/>';
-  $('graficoDv').innerHTML=s;
-}
+function faixaTxt(r){ return 'P5 <b>'+f2(r.p5)+'</b> · P50 <b>'+f2(r.p50)+'</b> · P95 <b>'+f2(r.p95)+'</b>'; }
 
 function calcular(){
   var erro=$('erro'); erro.textContent='';
@@ -255,12 +182,16 @@ function calcular(){
   if(temUt){
     var medio=(d+e)/2, p=percentil(ga,medio), r=refEm(ga);
     $('rMedio').textContent=f2(medio); $('rPct').textContent=fmtPct(p); $('rIG').textContent=igTxt;
-    $('tP5').textContent=f2(r.p5); $('tP50').textContent=f2(r.p50); $('tP95').textContent=f2(r.p95);
+    $('rFaixa').innerHTML='Faixa esperada aos '+igTxt+': '+faixaTxt(r);
     setTag($('rTag'), p>95, p<5, 'Acima do P95 · IP aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
     $('pmUt').style.left=Math.max(1,Math.min(99,p))+'%';
+    var lei = 'Média dos dois lados: ('+f2(d)+' + '+f2(e)+') ÷ 2 = <b>'+f2(medio)+'</b>. ';
+    if(p>95) lei += 'O valor passa do P95 ('+f2(r.p95)+') para esta idade gestacional: IP médio aumentado.';
+    else if(p<5) lei += 'O valor está abaixo do P5 ('+f2(r.p5)+') para esta idade gestacional.';
+    else lei += 'O valor está no <b>'+fmtPct(p)+'</b>: dentro da faixa de referência (entre P5 e P95).';
+    $('rLeitura').innerHTML=lei;
     var av=$('rAviso'); av.style.display='none'; av.textContent='';
     if(ga>97){ av.style.display='block'; av.textContent='IG acima de 13s6d: a curva vale, mas o rastreamento do 1º trimestre é feito entre 11+0 e 13+6.'; }
-    desenharUt(ga, medio);
     $('resUt').classList.add('on');
   }
 
@@ -279,18 +210,32 @@ function calcular(){
     } else {
       dav.style.display='none';
       $('dPct').textContent=res.txt;
-      $('dP5').textContent=f2(ref.p5); $('dP50').textContent=f2(ref.p50); $('dP95').textContent=f2(ref.p95);
+      $('dFaixa').innerHTML='Faixa esperada na '+Math.floor(ga/7)+'ª semana: '+faixaTxt(ref);
       setTag($('dTag'), res.alto, res.baixo, 'Acima do P95 · IPV aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
       $('pmDv').style.left=Math.max(1,Math.min(99,res.num))+'%';
-      desenharDv(ga, v, res.alto);
+      var ld = '';
+      if(res.alto) ld = 'O IPV <b>'+f2(v)+'</b> passa do P95 ('+f2(ref.p95)+') para esta semana: IPV aumentado.';
+      else if(res.baixo) ld = 'O IPV <b>'+f2(v)+'</b> está abaixo do P5 ('+f2(ref.p5)+') para esta semana.';
+      else ld = 'O IPV <b>'+f2(v)+'</b> está no <b>'+res.txt+'</b>: dentro da faixa de referência (entre P5 e P95).';
+      $('dLeitura').innerHTML=ld;
     }
     $('resDv').classList.add('on');
   }
+
+  // mostra o resultado sem o médico precisar rolar a página
+  var alvo=$('resultados');
+  alvo.scrollIntoView({behavior:'smooth', block: window.innerWidth<760 ? 'start' : 'nearest'});
 }
+
+// ----- cursor pula sozinho: 2 algarismos nas semanas -> dias -> IP direita -----
+function soDigitos(el){ el.value = el.value.replace(/[^0-9]/g,''); }
+$('sem').addEventListener('input', function(){ soDigitos(this); if(this.value.length>=2){ $('dia').focus(); } });
+$('dia').addEventListener('input', function(){ soDigitos(this); if(this.value.length>=1){ $('ipd').focus(); } });
+['sem','dia','ipd','ipe','ipv'].forEach(function(i){ $(i).addEventListener('focus', function(){ var el=this; setTimeout(function(){ try{ el.select(); }catch(x){} },0); }); });
 $('calc').addEventListener('click', calcular);
 $('limpar').addEventListener('click', function(){
   ['sem','dia','ipd','ipe','ipv'].forEach(function(i){ $(i).value=''; });
-  $('erro').textContent=''; $('resUt').classList.remove('on'); $('resDv').classList.remove('on');
+  $('erro').textContent=''; $('resUt').classList.remove('on'); $('resDv').classList.remove('on'); $('sem').focus();
 });
 document.addEventListener('keydown', function(ev){ if(ev.key==='Enter') calcular(); });
 </script></body></html>
