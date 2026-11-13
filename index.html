@@ -38,7 +38,6 @@ button.sec{background:transparent;color:var(--accent);border:1.5px solid var(--l
 .pbig{text-align:right}
 .pbig .big{font-size:3.7rem}
 .refline{font-size:.86rem;color:var(--muted)}
-#dRef{margin-top:12px}
 .refline b{color:var(--ink);font-variant-numeric:tabular-nums}
 .status{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:10px}
 .status .hint{margin:0}
@@ -133,15 +132,22 @@ footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);fon
         <div class="pbig"><div class="lbl">Percentil</div><div class="big p" id="dPct"></div></div>
       </div>
       <div class="status"><span class="tag" id="dTag"></span><span class="hint">IG <span id="dIG"></span></span></div>
-      <div class="refline" id="dRef">Referência: P95 <b id="dP95"></b></div>
+      <div id="dCorpo">
+        
+      <div class="pbar" aria-hidden="true">
+        <div class="pz z1"></div><div class="pz z2"></div><div class="pz z3"></div>
+        <div class="pm" id="pmDv"></div>
+        <div class="pticks"><span style="left:5%">P5</span><span style="left:50%">P50</span><span style="left:95%">P95</span></div>
+      </div>
+        <div class="refline" id="dRef">Referência: P5 <b id="dP5"></b> · P50 <b id="dP50"></b> · P95 <b id="dP95"></b></div>
+      </div>
       <div class="aviso" id="dAviso"></div>
     </section>
   </div>
 </div>
 <footer>
     <p><strong>Artérias uterinas:</strong> Gómez O, Figueras F, Fernández S, Bennasar M, Martínez JM, Puerto B, Gratacós E. Reference ranges for uterine artery mean pulsatility index at 11–41 weeks of gestation. <em>Ultrasound Obstet Gynecol</em> 2008;32(2):128-132. doi:10.1002/uog.5315 (620 gestantes). ln(IP médio) esperado = 1,39 − 0,012×IG + 0,0000198×IG², com IG em dias; desvio-padrão do ln = 0,272 − 0,000259×IG; o percentil vem do z-score dessa distribuição log-normal.</p>
-    <p><strong>Ducto venoso (IPV), 11+0 a 14+0 semanas:</strong> o P95 por semana completa de IG (11s: 1,46; 12s: 1,33; 13s: 1,32; 14s: 1,39) vem de valores de referência fornecidos no curso de pós-graduação em Medicina Fetal. Para o ducto venoso a calculadora indica apenas se o IPV está acima do P95; não calcula percentil.
-</p></footer>
+    <p><strong>Ducto venoso (IPV), 11+0 a 14+6 semanas:</strong> Carvalho FHC, Moron AF. Valores dos parâmetros da dopplerfluxometria do ducto venoso entre a 10ª e a 14ª semana de gestações normais. <em>Rev Bras Ginecol Obstet</em> 2004;26(1):15-20 (276 gestações). Usam-se os percentis 5, 50 e 95 do índice de pulsatilidade por semana completa de IG (Tabela 1 do artigo). Entre o P5 e o P95 o percentil é aproximado por uma distribuição normal dividida (desvio inferior = (P50 − P5)/1,645; superior = (P95 − P50)/1,645); fora dessa faixa aparece &lt; P5 ou &gt; P95.</p></footer>
 
 <div id="manual" role="dialog" aria-modal="true" aria-labelledby="manualTit">
   <div class="sheet">
@@ -188,8 +194,18 @@ function refEm(ga){ var m=mediaLn(ga), s=dpLn(ga); return {p5:Math.exp(m-1.645*s
 function percentil(ga, ip){ return normalCDF((Math.log(ip)-mediaLn(ga))/dpLn(ga))*100; }
 
 // ===== Ducto venoso (IPV), 11+0 a 14+0 =====
-var DV_P95 = {11:1.46, 12:1.33, 13:1.32, 14:1.39};
-function dvRef(ga){ if(ga<77 || ga>98) return null; var p95 = DV_P95[Math.floor(ga/7)]; return p95==null ? null : {p95:p95}; }
+// Carvalho FHC, Moron AF et al. RBGO 2004;26(1):15-20, Tabela 1 (IP do ducto venoso, percentis por semana completa)
+var DV_REF = {11:{p5:1.03,p50:1.08,p95:1.46}, 12:{p5:1.06,p50:1.09,p95:1.33}, 13:{p5:1.05,p50:1.09,p95:1.32}, 14:{p5:1.03,p50:1.06,p95:1.39}};
+function dvRef(ga){ if(ga<77 || ga>104) return null; return DV_REF[Math.floor(ga/7)] || null; }
+function dvPercentil(ipv, ga){
+  var r = dvRef(ga); if(!r) return null;
+  var EPS = 1e-9;
+  if(ipv > r.p95 + EPS) return {txt:'> P95', num:98, alto:true, baixo:false};
+  if(ipv < r.p5 - EPS)  return {txt:'< P5',  num:2,  alto:false, baixo:true};
+  var z = ipv >= r.p50 ? 1.645*(ipv-r.p50)/(r.p95-r.p50) : -1.645*(r.p50-ipv)/(r.p50-r.p5);
+  var pct = Math.max(5, Math.min(95, normalCDF(z)*100));
+  return {txt:'P'+Math.round(pct), num:pct, alto:Math.round(pct)>=95, baixo:false};
+}
 
 function $(id){ return document.getElementById(id); }
 function num(v){ v=String(v).trim().replace(',', '.'); if(v==='') return null; var n=Number(v); return isFinite(n)?n:NaN; }
@@ -235,22 +251,22 @@ function calcular(){
   }
 
   if(temDv){
-    var ref = dvRef(ga);
+    var res = dvPercentil(v, ga), ref = dvRef(ga);
     var dav=$('dAviso');
     $('dIG').textContent=igTxt; $('dMedio').textContent=f2(v);
-    if(!ref){
-      $('dPct').textContent='—'; $('dPct').classList.remove('alto'); $('dRef').style.display='none';
+    $('dCorpo').style.display = res ? 'block' : 'none';
+    if(!res){
+      $('dPct').textContent='—'; $('dPct').classList.remove('alto');
       setTag($('dTag'), false, false, '', '', 'Fora da faixa de referência');
       $('dTag').className='tag neutro';
       dav.style.display='block';
-      dav.textContent='A referência do ducto venoso vale entre 11+0 e 14+0 semanas.';
+      dav.textContent='A referência do ducto venoso vale entre 11+0 e 14+6 semanas.';
     } else {
       dav.style.display='none';
-      var difDv = v - ref.p95, igual = Math.abs(difDv) < 1e-9;
-      $('dPct').textContent = igual ? 'P95' : (difDv > 0 ? '> P95' : '< P95');
-      $('dRef').style.display='block'; $('dP95').textContent=f2(ref.p95);
-      var altoDv = difDv > -1e-9; $('dPct').classList.toggle('alto', altoDv);
-      setTag($('dTag'), altoDv, false, 'P95 ou acima · IPV aumentado', '', 'Abaixo do P95');
+      $('dPct').textContent=res.txt; $('dPct').classList.toggle('alto', res.alto);
+      $('dP5').textContent=f2(ref.p5); $('dP50').textContent=f2(ref.p50); $('dP95').textContent=f2(ref.p95);
+      setTag($('dTag'), res.alto, res.baixo, 'P95 ou acima · IPV aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
+      $('pmDv').style.left=Math.max(1,Math.min(99,res.num))+'%';
     }
     $('resDv').classList.add('on');
   }
