@@ -32,7 +32,12 @@ button.sec{background:transparent;color:var(--accent);border:1.5px solid var(--l
 #resultados{display:flex;gap:16px;flex-wrap:wrap;scroll-margin-top:10px}
 .res{display:none;flex:1 1 340px;min-width:0;margin-bottom:16px}.res.on{display:block}
 .rtit{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
-.topo{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 24px}
+.topo{display:grid;grid-template-columns:auto auto 1fr;align-items:end;gap:6px 22px}
+.refmini{justify-self:end;text-align:left;font-size:.9rem;line-height:1.45;border-left:3px solid #e4c67a;padding-left:10px}
+.refmini b{font-variant-numeric:tabular-nums}
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:10px}
+.status .hint{margin:0}
+@media(max-width:420px){.topo{gap:6px 14px}.big{font-size:2.15rem}.refmini{font-size:.84rem;padding-left:8px}}
 .lbl{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .big{font:600 2.5rem/1 Georgia,serif;color:var(--ink)}
 .big.p{color:var(--accent)}
@@ -42,8 +47,6 @@ button.sec{background:transparent;color:var(--accent);border:1.5px solid var(--l
 .pz{height:100%}.z1{width:5%;background:#f4d9a0;border-radius:99px 0 0 99px}.z2{width:90%;background:#dcd0ec}.z3{width:5%;background:#f2b7b1;border-radius:0 99px 99px 0}
 .pm{position:absolute;top:-6px;width:4px;height:24px;border-radius:3px;background:var(--ink);transform:translateX(-50%);box-shadow:0 0 0 3px #fff}
 .pticks span{position:absolute;top:20px;font-size:.72rem;color:var(--muted);transform:translateX(-50%)}
-.faixa{background:#f7f3fb;border-radius:10px;padding:8px 12px;font-size:.88rem;color:var(--ink)}
-.leitura{margin:12px 0 0;font-size:.95rem;line-height:1.5}
 .aviso{background:#fff7e6;border:1px solid #f0d9a8;color:#6b4a00;border-radius:10px;padding:10px 12px;font-size:.88rem;margin-top:12px;display:none}
 footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:.8rem}footer p{margin:6px 0}
 </style></head>
@@ -82,16 +85,15 @@ footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);fon
       <div class="topo">
         <div><div class="lbl">IP médio</div><div class="big" id="rMedio"></div></div>
         <div><div class="lbl">Percentil</div><div class="big p" id="rPct"></div></div>
-        <div style="padding-bottom:6px"><span class="tag" id="rTag"></span><div class="hint">IG <span id="rIG"></span></div></div>
+        <div class="refmini"><div class="lbl">Referência</div><div>P5 <b id="rP5"></b></div><div>P50 <b id="rP50"></b></div><div>P95 <b id="rP95"></b></div></div>
       </div>
+      <div class="status"><span class="tag" id="rTag"></span><span class="hint">IG <span id="rIG"></span></span></div>
       
       <div class="pbar" aria-hidden="true">
         <div class="pz z1"></div><div class="pz z2"></div><div class="pz z3"></div>
         <div class="pm" id="pmUt"></div>
         <div class="pticks"><span style="left:5%">P5</span><span style="left:50%">P50</span><span style="left:95%">P95</span></div>
       </div>
-      <div class="faixa" id="rFaixa"></div>
-      <p class="leitura" id="rLeitura"></p>
       <div class="aviso" id="rAviso"></div>
     </section>
 
@@ -100,8 +102,9 @@ footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);fon
       <div class="topo">
         <div><div class="lbl">IPV</div><div class="big" id="dMedio"></div></div>
         <div><div class="lbl">Percentil</div><div class="big p" id="dPct"></div></div>
-        <div style="padding-bottom:6px"><span class="tag" id="dTag"></span><div class="hint">IG <span id="dIG"></span></div></div>
+        <div class="refmini" id="dRef"><div class="lbl">Referência</div><div>P5 <b id="dP5"></b></div><div>P50 <b id="dP50"></b></div><div>P95 <b id="dP95"></b></div></div>
       </div>
+      <div class="status"><span class="tag" id="dTag"></span><span class="hint">IG <span id="dIG"></span></span></div>
       <div id="dCorpo">
         
       <div class="pbar" aria-hidden="true">
@@ -109,8 +112,6 @@ footer{max-width:1000px;margin:0 auto;padding:0 16px 40px;color:var(--muted);fon
         <div class="pm" id="pmDv"></div>
         <div class="pticks"><span style="left:5%">P5</span><span style="left:50%">P50</span><span style="left:95%">P95</span></div>
       </div>
-        <div class="faixa" id="dFaixa"></div>
-        <p class="leitura" id="dLeitura"></p>
       </div>
       <div class="aviso" id="dAviso"></div>
     </section>
@@ -161,8 +162,6 @@ function setTag(el, alto, baixo, txtAlto, txtBaixo, txtOk){
   else { el.className='tag ok'; el.textContent=txtOk; }
 }
 
-function faixaTxt(r){ return 'P5 <b>'+f2(r.p5)+'</b> · P50 <b>'+f2(r.p50)+'</b> · P95 <b>'+f2(r.p95)+'</b>'; }
-
 function calcular(){
   var erro=$('erro'); erro.textContent='';
   $('resUt').classList.remove('on'); $('resDv').classList.remove('on');
@@ -182,14 +181,9 @@ function calcular(){
   if(temUt){
     var medio=(d+e)/2, p=percentil(ga,medio), r=refEm(ga);
     $('rMedio').textContent=f2(medio); $('rPct').textContent=fmtPct(p); $('rIG').textContent=igTxt;
-    $('rFaixa').innerHTML='Faixa esperada aos '+igTxt+': '+faixaTxt(r);
+    $('rP5').textContent=f2(r.p5); $('rP50').textContent=f2(r.p50); $('rP95').textContent=f2(r.p95);
     setTag($('rTag'), p>95, p<5, 'Acima do P95 · IP aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
     $('pmUt').style.left=Math.max(1,Math.min(99,p))+'%';
-    var lei = 'Média dos dois lados: ('+f2(d)+' + '+f2(e)+') ÷ 2 = <b>'+f2(medio)+'</b>. ';
-    if(p>95) lei += 'O valor passa do P95 ('+f2(r.p95)+') para esta idade gestacional: IP médio aumentado.';
-    else if(p<5) lei += 'O valor está abaixo do P5 ('+f2(r.p5)+') para esta idade gestacional.';
-    else lei += 'O valor está no <b>'+fmtPct(p)+'</b>: dentro da faixa de referência (entre P5 e P95).';
-    $('rLeitura').innerHTML=lei;
     var av=$('rAviso'); av.style.display='none'; av.textContent='';
     if(ga>97){ av.style.display='block'; av.textContent='IG acima de 13s6d: a curva vale, mas o rastreamento do 1º trimestre é feito entre 11+0 e 13+6.'; }
     $('resUt').classList.add('on');
@@ -200,6 +194,7 @@ function calcular(){
     var fora = (res===null);
     $('dIG').textContent=igTxt; $('dMedio').textContent=f2(v);
     $('dCorpo').style.display = fora ? 'none' : 'block';
+    $('dRef').style.display = fora ? 'none' : '';
     var dav=$('dAviso');
     if(fora){
       $('dPct').textContent='—';
@@ -210,14 +205,9 @@ function calcular(){
     } else {
       dav.style.display='none';
       $('dPct').textContent=res.txt;
-      $('dFaixa').innerHTML='Faixa esperada na '+Math.floor(ga/7)+'ª semana: '+faixaTxt(ref);
+      $('dP5').textContent=f2(ref.p5); $('dP50').textContent=f2(ref.p50); $('dP95').textContent=f2(ref.p95);
       setTag($('dTag'), res.alto, res.baixo, 'Acima do P95 · IPV aumentado', 'Abaixo do P5', 'Dentro da faixa P5–P95');
       $('pmDv').style.left=Math.max(1,Math.min(99,res.num))+'%';
-      var ld = '';
-      if(res.alto) ld = 'O IPV <b>'+f2(v)+'</b> passa do P95 ('+f2(ref.p95)+') para esta semana: IPV aumentado.';
-      else if(res.baixo) ld = 'O IPV <b>'+f2(v)+'</b> está abaixo do P5 ('+f2(ref.p5)+') para esta semana.';
-      else ld = 'O IPV <b>'+f2(v)+'</b> está no <b>'+res.txt+'</b>: dentro da faixa de referência (entre P5 e P95).';
-      $('dLeitura').innerHTML=ld;
     }
     $('resDv').classList.add('on');
   }
