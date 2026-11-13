@@ -1,6 +1,6 @@
 {
-  "name": "Doppler no Morfológico do 1º trimestre",
-  "short_name": "Doppler 1ºT",
+  "name": "AUt + DV",
+  "short_name": "AUt + DV",
   "description": "Calculadora de percentis: artérias uterinas e ducto venoso",
   "start_url": "./",
   "scope": "./",
